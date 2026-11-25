@@ -46,7 +46,7 @@ class MainActivity : Activity() {
                     prefs.edit().putBoolean("vicenlock", true).apply()
                     web.loadUrl(URL)
                 } else {
-                    Toast.makeText(this, "Ese no es, intruso 🕵️", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Esa no es, intruso 🕵️", Toast.LENGTH_SHORT).show()
                     askCode(prefs)
                 }
             }
