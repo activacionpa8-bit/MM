@@ -6,9 +6,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputType
+import android.view.Gravity
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 
 class MainActivity : Activity() {
@@ -34,12 +37,27 @@ class MainActivity : Activity() {
     }
 
     private fun askCode(prefs: SharedPreferences) {
+        val d = resources.displayMetrics.density
         val input = EditText(this).apply {
             inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+            gravity = Gravity.CENTER
+        }
+        val logo = ImageView(this).apply {
+            setImageResource(R.drawable.logo)
+            adjustViewBounds = true
+            layoutParams = LinearLayout.LayoutParams(-1, (150 * d).toInt())
+            scaleType = ImageView.ScaleType.FIT_CENTER
+        }
+        val box = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            val p = (24 * d).toInt()
+            setPadding(p, p, p, 0)
+            addView(logo)
+            addView(input)
         }
         AlertDialog.Builder(this)
             .setTitle("Alto ahí, forastero. ¿Contraseña?")
-            .setView(input)
+            .setView(box)
             .setCancelable(false)
             .setPositiveButton("Entrar") { _, _ ->
                 if (input.text.toString() == CODE) {
